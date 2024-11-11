@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Недвижимость</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .property-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .property-header {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .property-info {
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            padding: 8px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .property-info:last-child {
+            border-bottom: none;
+        }
+        .property-label {
+            font-weight: bold;
+            color: #555;
+        }
+        .property-value {
+            color: #333;
+        }
+        .views {
+            text-align: right;
+            font-size: 14px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+<div class="property-container" th:each="advertisement: ${advertisement}">
+    <div class="property-header">Продается квартира</div>
+
+    <div class="property-info">
+        <div class="property-label">Цена:</div>
+        <div class="property-value" th:text="${advertisement.getPrice()} + ' $'"></div>
+    </div>
+
+    <div class="property-info">
+        <div class="property-label">Количество комнат:</div>
+        <div class="property-value" th:text="${advertisement.getNumberOfRooms()}"></div>
+    </div>
+
+    <div class="property-info">
+        <div class="property-label">Количество спален:</div>
+        <div class="property-value" th:text="${advertisement.getNumberOfBedrooms()}"></div>
+    </div>
+
+    <div class="property-info">
+        <div class="property-label">Площадь:</div>
+        <div class="property-value" th:text="${advertisement.getArea()} + ' м²'"></div>
+    </div>
+
+    <div class="property-info">
+        <div class="property-label">Этаж:</div>
+        <div class="property-value" th:text="${advertisement.getFloor()}"></div>
+    </div>
+
+    <div class="property-info">
+        <div class="property-label">Регион:</div>
+        <div class="property-value" th:text="${advertisement.getRegion()}"></div>
+    </div>
+
+    <div class="property-info">
+        <div class="property-label">Адрес:</div>
+        <div class="property-value" th:text="${advertisement.getAddress()}"></div>
+    </div>
+
+    <div class="views" th:text="'Количество просмотров: ' + ${advertisement.getViews()}">
+    </div>
+</div>
+</body>
+</html>

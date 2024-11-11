@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сайт недвижимости</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .search-bar {
+            display: flex;
+            align-items: center; /* Выравниваем по центру по вертикали */
+            gap: 10px; /* Отступ между элементами */
+            margin-bottom: 20px;
+        }
+        .search-bar input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 80%; /* Сделаем поле ввода шире */
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        .search-bar button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .search-bar button:hover {
+            background-color: #34495e;
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: flex-start;
+        }
+        .filter-button {
+            padding: 10px 15px;
+            font-size: 16px;
+            background-color: #ddd;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            color: #333;
+        }
+        .filter-button.active {
+            background-color: #2c3e50;
+            color: #fff;
+        }
+        .filter-button:hover {
+            background-color: #bbb;
+        }
+        .property-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .property-card {
+            width: 33%;
+            background-color: #fff;
+            border-radius: 8px;
+            border: 2px solid white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .property-card:hover {
+            border: 2px solid #2c3e50;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        .property-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        .property-address {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        .property-area {
+            font-size: 14px;
+            color: #888;
+        }
+        @media (max-width: 768px) {
+            .property-card {
+                width: calc(50% - 10px);
+            }
+        }
+        @media (max-width: 480px) {
+            .property-card {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header class="header">
+        <h1>Сайт недвижимости</h1>
+        <p>Найдите подходящую недвижимость</p>
+    </header>
+
+    <!-- Блок поиска -->
+    <div class="search-bar">
+        <input type="text" placeholder="Введите адрес или регион">
+        <button>поиск</button>
+    </div>
+
+    <!-- Кнопки фильтрации -->
+    <div class="button-group">
+        <a th:href="@{/advertisement/mainPageFiltered(filter='low')}" class="filter-button">Цена: дешевые</a>
+        <a th:href="@{/advertisement/mainPageFiltered(filter='high')}" class="filter-button">Цена: дорогие</a>
+    </div>
+
+    <!-- <div class="button-group">
+       <a href="/mainPage?filter=rooms-1" class="filter-button">1 комната</a>
+       <a href="/mainPage?filter=rooms-2" class="filter-button">2 комнаты</a>
+       <a href="/mainPage?filter=rooms-3" class="filter-button">3 комнаты</a>
+       <a href="/mainPage?filter=rooms-4" class="filter-button">4 и более</a>
+   </div>-->
+
+   <!-- Карточки недвижимости -->
+    <div class="property-cards">
+        <div class="property-card" th:each="advertisement: ${advertisements}">
+            <a th:href="@{/advertisement/{id}(id=${advertisement.getId()})}">
+                <div class="property-price" th:text="${advertisement.getPrice()} + ' $'"></div>
+                <div class="property-address" th:text="${advertisement.getAddress()}"></div>
+                <div class="property-area" th:text="${advertisement.getArea()} + ' м²'"></div>
+            </a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
